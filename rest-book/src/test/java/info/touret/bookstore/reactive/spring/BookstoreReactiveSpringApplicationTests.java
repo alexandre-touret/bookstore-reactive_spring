@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive;
+package info.touret.bookstore.reactive.spring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

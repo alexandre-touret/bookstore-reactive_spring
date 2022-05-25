@@ -2,22 +2,75 @@ plugins {
 	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'idea'
+    id "org.sonarqube" version "${sonarqubeVersion}"
+    id "jacoco"
+}
+bootJar {
+    enabled = false
 }
 
-group = 'info.touret.bookstore'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+allprojects {
+    apply plugin: 'java'
 
-repositories {
-	mavenCentral()
+    group = 'info.touret.bookstore'
+    version = '0.0.1-SNAPSHOT'
+
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
+subprojects {
+
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.sonarqube'
+
+    sourceCompatibility = '17'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+    dependencies {
+	    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	    testImplementation 'io.projectreactor:reactor-test'
+    }
+     bootJar {
+            enabled = true
+        }
+
+        jacocoTestReport {
+            reports {
+                xml.enabled true
+            }
+        }
+
+        sonarqube{
+            properties{
+                property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
+                property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+            }
+        }
+
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+project(':rest-book'){
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+        testImplementation 'io.r2dbc:r2dbc-h2'
+    }
 }
+project(':rest-number'){}

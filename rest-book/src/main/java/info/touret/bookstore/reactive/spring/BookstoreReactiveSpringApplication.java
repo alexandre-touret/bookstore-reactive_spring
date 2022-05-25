@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive;
+package info.touret.bookstore.reactive.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class BookstoreReactiveSpringApplication {
 
     public static void main(String[] args) {
-
-        ConfigurableApplicationContext context = SpringApplication.run(BookstoreReactiveSpringApplication.class, args);
-        GreetingClient greetingClient = context.getBean(GreetingClient.class);
-        System.out.println(">> MSG=" + greetingClient.getMessage().block());
+         SpringApplication.run(BookstoreReactiveSpringApplication.class, args);
     }
 
 }
