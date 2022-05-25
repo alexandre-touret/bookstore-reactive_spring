@@ -71,6 +71,7 @@ project(':rest-book'){
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
         testImplementation 'io.r2dbc:r2dbc-h2'
+        testImplementation 'io.projectreactor:reactor-test'
     }
 }
 project(':rest-number'){}
