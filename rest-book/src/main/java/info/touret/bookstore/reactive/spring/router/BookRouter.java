@@ -20,7 +20,7 @@ public class BookRouter {
     private static final String BASE_PATH = "/api/books";
 
     @Bean
-    public RouterFunction<ServerResponse> route(BookHandler bookHandler) {
+    public RouterFunction<ServerResponse> bookRoutes(BookHandler bookHandler) {
         return RouterFunctions
                 .route(GET(BASE_PATH + "/random")
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::random)
