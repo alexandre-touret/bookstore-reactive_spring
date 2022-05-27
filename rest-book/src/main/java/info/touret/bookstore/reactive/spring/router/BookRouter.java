@@ -25,7 +25,7 @@ public class BookRouter {
                 .route(GET(BASE_PATH + "/random")
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::random)
                 .andRoute(GET(BASE_PATH + "/")
-                        .and(accept(MediaType.APPLICATION_JSON)), bookHandler::random)
+                        .and(accept(MediaType.APPLICATION_JSON)), bookHandler::findAll)
                 .andRoute(GET(BASE_PATH + "/count")
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::count)
                 .andRoute(POST(BASE_PATH + "/")

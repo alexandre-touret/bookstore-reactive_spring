@@ -1,6 +1,6 @@
 package info.touret.bookstore.reactive.spring.router;
 
-import info.touret.bookstore.reactive.spring.IntegrationTestConfiguration;
+import info.touret.bookstore.reactive.spring.BookstoreReactiveSpringTestApplication;
 import info.touret.bookstore.reactive.spring.dto.MaintenanceDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = IntegrationTestConfiguration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BookstoreReactiveSpringTestApplication.class)
 class MaintenanceRouterTest {
 
 

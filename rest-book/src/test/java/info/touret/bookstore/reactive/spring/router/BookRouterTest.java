@@ -1,6 +1,6 @@
 package info.touret.bookstore.reactive.spring.router;
 
-import info.touret.bookstore.reactive.spring.IntegrationTestConfiguration;
+import info.touret.bookstore.reactive.spring.BookstoreReactiveSpringTestApplication;
 import info.touret.bookstore.reactive.spring.entity.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.HashMap;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = IntegrationTestConfiguration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BookstoreReactiveSpringTestApplication.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class BookRouterTest {
 
@@ -38,11 +38,11 @@ class BookRouterTest {
     void should_return_the_list_with_one_item() {
         webTestClient
                 .get()
-                .uri(BASE_PATH + "/random")
+                .uri(BASE_PATH + "/")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(Book.class).value(book -> book.getId().equals(100L));
+                .expectBodyList(Book.class).hasSize(1);
     }
 
     @Test

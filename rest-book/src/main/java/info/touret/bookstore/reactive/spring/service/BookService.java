@@ -18,7 +18,9 @@ public class BookService {
     }
 
     public Mono<Book> findRandomBook() {
-        return bookRepository.findById(100L);
+        return bookRepository.count().flatMap(bookNumber ->
+                bookRepository.findById(Math.round(Math.random() * bookNumber)).retry(10)
+        );
     }
 
     public Flux<Book> findAll() {
