@@ -1,0 +1,12 @@
+server:
+  port: 8082
+
+spring:
+  ## The most important feature... ever
+  banner:
+    location=classpath:/banner.txt
+  r2dbc:
+    name: books-database
+    username: book
+    password: book
+    url: r2dbc:postgres://localhost:5432/books_database
