@@ -18,14 +18,18 @@ public class BookService {
     }
 
     public Mono<Book> findRandomBook() {
-       return bookRepository.findById(100L);
+        return bookRepository.findById(100L);
     }
 
     public Flux<Book> findAll() {
         return bookRepository.findAll();
     }
 
-    public Mono<Map<String, Long>> count(){
-        return bookRepository.count().map(aLong -> Map.of("books.count",aLong));
+    public Mono<Map<String, Long>> count() {
+        return bookRepository.count().map(aLong -> Map.of("books.count", aLong));
+    }
+
+    public Mono<Book> create(Book book) {
+        return bookRepository.save(book);
     }
 }

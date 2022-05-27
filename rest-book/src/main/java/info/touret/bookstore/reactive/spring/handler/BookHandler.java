@@ -22,6 +22,7 @@ public class BookHandler {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(bookService.findRandomBook(), Book.class));
     }
+
     public Mono<ServerResponse> findAll(ServerRequest request) {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(bookService.findAll(), Book.class);
@@ -30,5 +31,13 @@ public class BookHandler {
     public Mono<ServerResponse> count(ServerRequest serverRequest) {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(bookService.count(), Book.class);
+    }
+
+    public Mono<ServerResponse> create(ServerRequest serverRequest) {
+        return serverRequest.bodyToMono(Book.class)
+                .flatMap(book -> bookService.create(book))
+                .flatMap(book -> ServerResponse.created(serverRequest.uriBuilder().path(book.getId().toString()).build())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromValue(serverRequest.uriBuilder().path(book.getId().toString()).build())));
     }
 }
