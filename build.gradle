@@ -15,7 +15,9 @@ allprojects {
 
     group = 'info.touret.bookstore'
     version = '0.0.1-SNAPSHOT'
-
+    compileJava {
+        options.compilerArgs.add("--enable-preview")
+    }
 
     repositories {
         mavenCentral()
@@ -23,6 +25,7 @@ allprojects {
 
     test {
         useJUnitPlatform()
+        jvmArgs("--enable-preview")
     }
 
 }

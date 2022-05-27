@@ -15,7 +15,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration(proxyBeanMethods = false)
 public class MaintenanceRouter {
 
-    private static final String MAINTENANCE_BASE_PATH = "/api/maintenance";
+    public static final String MAINTENANCE_BASE_PATH = "/api/maintenance";
 
     @Bean
     public RouterFunction<ServerResponse> maintenanceRoutes(MaintenanceHandler maintenanceHandler) {
