@@ -69,4 +69,58 @@ class BookRouterTest {
                 .expectBody(URI.class).value(uri -> uri.getPath().contains("/api/books/1"))
                 .value(System.out::println);
     }
+
+    @Test
+    void should_get_a_book() {
+        webTestClient
+                .get()
+                .uri(BASE_PATH + "/100")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(Book.class).value(book -> book.getId().equals(100L));
+    }
+
+    @Test
+    void should_update_a_book() throws Exception {
+        Book book = new Book();
+        book.setId(100L);
+        book.setAuthor("George Orwell");
+        book.setTitle("Animal's farm");
+        book.setDescription("Animal's farm");
+        String mediumImageUrl = "http://mockaddress.com";
+        book.setMediumImageUrl(mediumImageUrl);
+        book.setSmallImageUrl(mediumImageUrl);
+        webTestClient
+                .put()
+                .uri(BASE_PATH + "/")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(book), Book.class)
+                .exchange()
+                .expectStatus().isAccepted()
+                .expectBody(Book.class)
+                .value(book1 -> book1.getMediumImageUrl().equals(mediumImageUrl));
+    }
+
+    @Test
+    void should_delete_a_book() throws Exception {
+        webTestClient
+                .delete()
+                .uri(BASE_PATH + "/100")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+        ;
+
+        webTestClient
+                .get()
+                .uri(BASE_PATH + "/100")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody().isEmpty()
+        ;
+    }
+
+
 }

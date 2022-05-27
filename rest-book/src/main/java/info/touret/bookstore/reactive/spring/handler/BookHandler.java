@@ -40,4 +40,26 @@ public class BookHandler {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromValue(serverRequest.uriBuilder().path(book.getId().toString()).build())));
     }
+
+    public Mono<ServerResponse> update(ServerRequest serverRequest) {
+        return serverRequest.bodyToMono(Book.class)
+                .flatMap(bookService::update)
+                .flatMap(book -> ServerResponse
+                        .accepted()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromValue(book)));
+    }
+
+    public Mono<ServerResponse> findBook(ServerRequest serverRequest) {
+        return bookService.findBookById(Long.valueOf(serverRequest.pathVariable("id")))
+                .flatMap(book -> ServerResponse
+                        .ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromValue(book)));
+    }
+
+    public Mono<ServerResponse> delete(ServerRequest serverRequest) {
+        return bookService.delete(Long.valueOf(serverRequest.pathVariable("id")))
+                .flatMap(book -> ServerResponse.noContent().build());
+    }
 }

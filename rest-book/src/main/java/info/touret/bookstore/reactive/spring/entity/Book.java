@@ -7,7 +7,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.net.URL;
 
 public class Book implements Serializable {
 
@@ -28,9 +27,9 @@ public class Book implements Serializable {
     public Integer rank;
     public BigDecimal price;
     @Column("small_image_url")
-    public URL smallImageUrl;
+    public String smallImageUrl;
     @Column("medium_image_url")
-    public URL mediumImageUrl;
+    public String mediumImageUrl;
     @Column()
     public String description;
     @Id()
@@ -108,19 +107,19 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public URL getSmallImageUrl() {
+    public String getSmallImageUrl() {
         return smallImageUrl;
     }
 
-    public void setSmallImageUrl(URL smallImageUrl) {
+    public void setSmallImageUrl(String smallImageUrl) {
         this.smallImageUrl = smallImageUrl;
     }
 
-    public URL getMediumImageUrl() {
+    public String getMediumImageUrl() {
         return mediumImageUrl;
     }
 
-    public void setMediumImageUrl(URL mediumImageUrl) {
+    public void setMediumImageUrl(String mediumImageUrl) {
         this.mediumImageUrl = mediumImageUrl;
     }
 
@@ -130,5 +129,23 @@ public class Book implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", isbn13='" + isbn13 + '\'' +
+                ", isbn10='" + isbn10 + '\'' +
+                ", author='" + author + '\'' +
+                ", yearOfPublication=" + yearOfPublication +
+                ", nbOfPages=" + nbOfPages +
+                ", rank=" + rank +
+                ", price=" + price +
+                ", smallImageUrl='" + smallImageUrl + '\'' +
+                ", mediumImageUrl='" + mediumImageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

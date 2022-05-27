@@ -32,4 +32,16 @@ public class BookService {
     public Mono<Book> create(Book book) {
         return bookRepository.save(book);
     }
+
+    public Mono<Book> update(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public Mono<Book> findBookById(Long id) {
+        return bookRepository.findById(id);
+    }
+
+    public Mono<Void> delete(Long id) {
+        return bookRepository.findById(id).flatMap(book -> bookRepository.delete(book));
+    }
 }
