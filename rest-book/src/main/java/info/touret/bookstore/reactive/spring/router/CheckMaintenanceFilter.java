@@ -1,18 +1,13 @@
 package info.touret.bookstore.reactive.spring.router;
 
-import info.touret.bookstore.reactive.spring.GlobalExceptionHandler;
-import info.touret.bookstore.reactive.spring.exception.MaintenanceException;
+import info.touret.bookstore.reactive.spring.exception.ApiCallTimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.ReadinessState;
-import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebExceptionHandler;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
@@ -20,24 +15,30 @@ import reactor.core.publisher.Mono;
 @Component
 public class CheckMaintenanceFilter implements WebFilter {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(CheckMaintenanceFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CheckMaintenanceFilter.class);
     private final ApplicationAvailability availability;
 
-    private final GlobalExceptionHandler exceptionHandler;
-
-    public CheckMaintenanceFilter(ApplicationAvailability availability,  GlobalExceptionHandler exceptionHandler) {
+    public CheckMaintenanceFilter(ApplicationAvailability availability) {
         this.availability = availability;
-        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         if (availability.getReadinessState().equals(ReadinessState.REFUSING_TRAFFIC) &&
-                !exchange.getRequest().getPath().equals(MaintenanceRouter.MAINTENANCE_BASE_PATH)) {
+                !exchange.getRequest().getPath().value().equals(MaintenanceRouter.MAINTENANCE_BASE_PATH)) {
             LOGGER.warn("Message handled during maintenance [{}]", exchange.getRequest().getPath());
-            return exceptionHandler.handle(exchange, new MaintenanceException("Service currently in maintenance"));
+            exchange.getResponse().setStatusCode(HttpStatus.I_AM_A_TEAPOT);
+            return exchange.getResponse().writeWith(Mono.empty());
         } else {
-            return chain.filter(exchange);
+            return chain.filter(exchange)
+                    .onErrorResume(ApiCallTimeoutException.class, error -> {
+                        exchange.getResponse().setStatusCode(HttpStatus.REQUEST_TIMEOUT);
+                        return exchange.getResponse().writeWith(Mono.error(error));
+                    })
+                    .onErrorResume(Exception.class, error -> {
+                        exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+                        return exchange.getResponse().writeWith(Mono.error(error));
+                    });
         }
     }
 }

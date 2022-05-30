@@ -36,6 +36,7 @@ public class BookRouter {
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::findBook)
                 .andRoute(DELETE(BASE_PATH + "/{id}")
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::delete)
+
                 ;
     }
 }

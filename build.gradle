@@ -18,6 +18,9 @@ allprojects {
     compileJava {
         options.compilerArgs.add("--enable-preview")
     }
+    compileTestJava {
+        options.compilerArgs.add("--enable-preview")
+    }
 
     repositories {
         mavenCentral()

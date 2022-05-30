@@ -32,4 +32,5 @@ public class BookstoreReactiveSpringTestApplication {
         initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("01-books-test-ddl.sql"), new ClassPathResource("books-data.sql")));
         return initializer;
     }
+
 }
