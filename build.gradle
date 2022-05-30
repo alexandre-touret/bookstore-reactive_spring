@@ -81,4 +81,9 @@ project(':rest-book'){
         testImplementation 'io.projectreactor:reactor-test'
     }
 }
-project(':rest-number'){}
+project(':rest-number') {
+    dependencies {
+        implementation 'com.github.javafaker:javafaker:1.0.2'
+        implementation 'org.yaml:snakeyaml:1.29'
+    }
+}
