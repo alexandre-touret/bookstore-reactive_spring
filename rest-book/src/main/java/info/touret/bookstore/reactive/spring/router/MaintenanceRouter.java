@@ -1,6 +1,8 @@
 package info.touret.bookstore.reactive.spring.router;
 
+import info.touret.bookstore.reactive.spring.ErrorFilter;
 import info.touret.bookstore.reactive.spring.handler.MaintenanceHandler;
+import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -18,12 +20,13 @@ public class MaintenanceRouter {
     public static final String MAINTENANCE_BASE_PATH = "/api/maintenance";
 
     @Bean
-    public RouterFunction<ServerResponse> maintenanceRoutes(MaintenanceHandler maintenanceHandler) {
+    public RouterFunction<ServerResponse> maintenanceRoutes(MaintenanceHandler maintenanceHandler, ApplicationAvailability applicationAvailability) {
 
         return RouterFunctions.route(GET(MAINTENANCE_BASE_PATH)
                         .and(accept(MediaType.APPLICATION_JSON)), maintenanceHandler::checkMaintenanceStatus)
                 .andRoute(PUT(MAINTENANCE_BASE_PATH)
                         .and(accept(MediaType.APPLICATION_JSON)), maintenanceHandler::putInMaintenance)
+                .filter(new ErrorFilter(applicationAvailability))
                 ;
     }
 }

@@ -1,6 +1,8 @@
 package info.touret.bookstore.reactive.spring.router;
 
+import info.touret.bookstore.reactive.spring.ErrorFilter;
 import info.touret.bookstore.reactive.spring.handler.BookHandler;
+import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -20,7 +22,7 @@ public class BookRouter {
     private static final String BASE_PATH = "/api/books";
 
     @Bean
-    public RouterFunction<ServerResponse> bookRoutes(BookHandler bookHandler) {
+    public RouterFunction<ServerResponse> bookRoutes(BookHandler bookHandler, ApplicationAvailability applicationAvailability) {
         return RouterFunctions
                 .route(GET(BASE_PATH + "/random")
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::random)
@@ -36,7 +38,7 @@ public class BookRouter {
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::findBook)
                 .andRoute(DELETE(BASE_PATH + "/{id}")
                         .and(accept(MediaType.APPLICATION_JSON)), bookHandler::delete)
-
+                .filter(new ErrorFilter(applicationAvailability))
                 ;
     }
 }
