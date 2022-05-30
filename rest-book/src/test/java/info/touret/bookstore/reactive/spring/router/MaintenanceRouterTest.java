@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.availability.ApplicationAvailability;
+import org.springframework.boot.availability.AvailabilityChangeEvent;
 import org.springframework.boot.availability.ReadinessState;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,6 +25,9 @@ class MaintenanceRouterTest {
 
     @MockBean
     ApplicationAvailability applicationAvailability;
+
+    @MockBean
+    AvailabilityChangeEvent<ReadinessState> readinessStateAvailabilityChangeEvent;
     private static final String MAINTENANCE_BASE_PATH = "/api/maintenance";
 
     @Autowired
@@ -32,6 +36,8 @@ class MaintenanceRouterTest {
     @BeforeEach
     void setUp() {
         when(applicationAvailability.getReadinessState()).thenReturn(ReadinessState.ACCEPTING_TRAFFIC);
+        when(readinessStateAvailabilityChangeEvent.getState()).thenReturn(ReadinessState.ACCEPTING_TRAFFIC);
+        when(applicationAvailability.getLastChangeEvent(ReadinessState.class)).thenReturn(readinessStateAvailabilityChangeEvent);
     }
 
     @Test
@@ -52,7 +58,7 @@ class MaintenanceRouterTest {
                 .bodyValue(Boolean.TRUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus().isNoContent();
         when(applicationAvailability.getReadinessState()).thenReturn(ReadinessState.REFUSING_TRAFFIC);
         webTestClient
                 .get()
