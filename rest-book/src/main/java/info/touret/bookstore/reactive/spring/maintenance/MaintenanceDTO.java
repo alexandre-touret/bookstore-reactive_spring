@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive.spring.dto;
+package info.touret.bookstore.reactive.spring.maintenance;
 
 import java.io.Serializable;
 import java.util.Date;

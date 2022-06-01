@@ -1,8 +1,6 @@
-package info.touret.bookstore.reactive.spring.router;
+package info.touret.bookstore.reactive.spring.book;
 
 import info.touret.bookstore.reactive.spring.BookstoreReactiveSpringTestApplication;
-import info.touret.bookstore.reactive.spring.dto.IsbnNumbers;
-import info.touret.bookstore.reactive.spring.entity.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

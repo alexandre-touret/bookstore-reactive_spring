@@ -1,7 +1,5 @@
-package info.touret.bookstore.reactive.spring.handler;
+package info.touret.bookstore.reactive.spring.book;
 
-import info.touret.bookstore.reactive.spring.entity.Book;
-import info.touret.bookstore.reactive.spring.service.BookService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;

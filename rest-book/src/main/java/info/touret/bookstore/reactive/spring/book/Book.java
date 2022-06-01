@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive.spring.entity;
+package info.touret.bookstore.reactive.spring.book;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;

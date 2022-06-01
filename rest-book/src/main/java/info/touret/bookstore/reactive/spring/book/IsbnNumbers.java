@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive.spring.dto;
+package info.touret.bookstore.reactive.spring.book;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

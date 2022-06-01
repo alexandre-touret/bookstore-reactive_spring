@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive.spring;
+package info.touret.bookstore.reactive.spring.book;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;

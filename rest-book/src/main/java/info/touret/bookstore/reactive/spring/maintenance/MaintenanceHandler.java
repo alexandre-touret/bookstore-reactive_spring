@@ -1,6 +1,5 @@
-package info.touret.bookstore.reactive.spring.handler;
+package info.touret.bookstore.reactive.spring.maintenance;
 
-import info.touret.bookstore.reactive.spring.dto.MaintenanceDTO;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.AvailabilityChangeEvent;
 import org.springframework.boot.availability.ReadinessState;

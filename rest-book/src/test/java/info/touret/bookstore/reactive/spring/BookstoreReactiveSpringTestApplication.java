@@ -1,5 +1,6 @@
 package info.touret.bookstore.reactive.spring;
 
+import info.touret.bookstore.reactive.spring.book.BookstoreConfiguration;
 import io.r2dbc.spi.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

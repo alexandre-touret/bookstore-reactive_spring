@@ -1,7 +1,6 @@
-package info.touret.bookstore.reactive.spring.router;
+package info.touret.bookstore.reactive.spring.book;
 
 import info.touret.bookstore.reactive.spring.ErrorFilter;
-import info.touret.bookstore.reactive.spring.handler.BookHandler;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package info.touret.bookstore.reactive.spring.exception;
+package info.touret.bookstore.reactive.spring.book;
 
 /**
  * Exposes a timeout exception

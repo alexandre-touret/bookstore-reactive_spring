@@ -1,11 +1,7 @@
-package info.touret.bookstore.reactive.spring.service;
+package info.touret.bookstore.reactive.spring.book;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import info.touret.bookstore.reactive.spring.dto.IsbnNumbers;
-import info.touret.bookstore.reactive.spring.entity.Book;
-import info.touret.bookstore.reactive.spring.exception.ApiCallTimeoutException;
-import info.touret.bookstore.reactive.spring.repository.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

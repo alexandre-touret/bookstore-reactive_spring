@@ -1,7 +1,7 @@
 package info.touret.bookstore.reactive.spring;
 
-import info.touret.bookstore.reactive.spring.exception.ApiCallTimeoutException;
-import info.touret.bookstore.reactive.spring.router.MaintenanceRouter;
+import info.touret.bookstore.reactive.spring.book.ApiCallTimeoutException;
+import info.touret.bookstore.reactive.spring.maintenance.MaintenanceRouter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.availability.ApplicationAvailability;

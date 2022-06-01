@@ -1,7 +1,6 @@
-package info.touret.bookstore.reactive.spring.router;
+package info.touret.bookstore.reactive.spring.maintenance;
 
 import info.touret.bookstore.reactive.spring.BookstoreReactiveSpringTestApplication;
-import info.touret.bookstore.reactive.spring.dto.MaintenanceDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
