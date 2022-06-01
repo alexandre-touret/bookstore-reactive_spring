@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
@@ -14,6 +15,8 @@ class BookstoreReactiveSpringApplicationTests {
 
 	@MockBean
 	private WebClient webClient;
+	@MockBean
+	private ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
 
 	@Test
 	void contextLoads() {

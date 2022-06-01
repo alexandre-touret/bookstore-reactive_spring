@@ -77,7 +77,7 @@ project(':rest-book'){
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
         implementation 'io.r2dbc:r2dbc-postgresql:0.8.12.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+        implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
         testImplementation 'io.r2dbc:r2dbc-h2'
         testImplementation 'io.projectreactor:reactor-test'
     }
