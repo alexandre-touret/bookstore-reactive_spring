@@ -17,21 +17,21 @@ public class Book implements Serializable {
     @Column("isbn_10")
     private String isbn10;
     private String author;
-    @Column( "year_of_publication")
+    @Column("year_of_publication")
     private Integer yearOfPublication;
     @Column("nb_of_pages")
     private Integer nbOfPages;
 
     @Min(1)
     @Max(10)
-    public Integer rank;
-    public BigDecimal price;
+    private Integer rank;
+    private BigDecimal price;
     @Column("small_image_url")
-    public String smallImageUrl;
+    private String smallImageUrl;
     @Column("medium_image_url")
-    public String mediumImageUrl;
+    private String mediumImageUrl;
     @Column()
-    public String description;
+    private String description;
     @Id()
     private Long id;
 
@@ -147,5 +147,23 @@ public class Book implements Serializable {
                 ", description='" + description + '\'' +
                 ", id=" + id +
                 '}';
+    }
+
+    public Book(Book bookCopy) {
+        this.id = bookCopy.getId();
+        this.isbn10 = bookCopy.getIsbn10();
+        this.isbn13 = bookCopy.getIsbn13();
+        this.author = bookCopy.getAuthor();
+        this.description = bookCopy.getDescription();
+        this.mediumImageUrl = bookCopy.getMediumImageUrl();
+        this.nbOfPages = bookCopy.getNbOfPages();
+        this.price = bookCopy.getPrice();
+        this.rank = bookCopy.getRank();
+        this.smallImageUrl = bookCopy.getSmallImageUrl();
+        this.title = bookCopy.getTitle();
+        this.yearOfPublication = bookCopy.getYearOfPublication();
+    }
+
+    public Book() {
     }
 }

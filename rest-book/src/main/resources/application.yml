@@ -10,3 +10,7 @@ spring:
     username: book
     password: book
     url: r2dbc:postgres://localhost:5432/books_database
+booknumbers:
+  api:
+    url: http://127.0.0.1:8081/api/numbers
+    timeout_sec: 2

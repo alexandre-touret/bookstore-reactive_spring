@@ -35,6 +35,7 @@ public class ErrorFilter implements HandlerFilterFunction<ServerResponse, Server
         } else {
             return next.handle(request)
                     .onErrorResume(ApiCallTimeoutException.class, error -> ServerResponse.status(HttpStatus.REQUEST_TIMEOUT).build())
+                    .onErrorResume(IllegalStateException.class, error -> ServerResponse.status(INTERNAL_SERVER_ERROR).build())
                     .onErrorResume(Exception.class, error -> ServerResponse.status(INTERNAL_SERVER_ERROR).build());
         }
     }

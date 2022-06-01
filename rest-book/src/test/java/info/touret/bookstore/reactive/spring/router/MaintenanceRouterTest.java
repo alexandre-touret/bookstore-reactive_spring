@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.mockito.Mockito.when;
 
@@ -32,6 +33,9 @@ class MaintenanceRouterTest {
 
     @Autowired
     private WebTestClient webTestClient;
+
+    @MockBean
+    private WebClient webClient;
 
     @BeforeEach
     void setUp() {

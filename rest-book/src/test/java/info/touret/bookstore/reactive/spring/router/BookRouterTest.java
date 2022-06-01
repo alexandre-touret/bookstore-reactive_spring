@@ -1,19 +1,25 @@
 package info.touret.bookstore.reactive.spring.router;
 
 import info.touret.bookstore.reactive.spring.BookstoreReactiveSpringTestApplication;
+import info.touret.bookstore.reactive.spring.dto.IsbnNumbers;
 import info.touret.bookstore.reactive.spring.entity.Book;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.HashMap;
+
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BookstoreReactiveSpringTestApplication.class)
@@ -23,6 +29,30 @@ class BookRouterTest {
     private static final String BASE_PATH = "/api/books";
     @Autowired
     private WebTestClient webTestClient;
+
+    @MockBean
+    private WebClient webClientMock;
+    @MockBean
+    private WebClient.RequestHeadersSpec requestHeadersMock;
+    @MockBean
+    private WebClient.RequestHeadersUriSpec requestHeadersUriMock;
+    @MockBean
+    private WebClient.RequestBodySpec requestBodyMock;
+    @MockBean
+    private WebClient.RequestBodyUriSpec requestBodyUriMock;
+    @MockBean
+    private WebClient.ResponseSpec responseMock;
+
+    @BeforeEach
+    void setUp() {
+        IsbnNumbers isbnNumbers = new IsbnNumbers();
+        isbnNumbers.setIsbn10("012456789");
+        isbnNumbers.setIsbn13("012456789123");
+        when(webClientMock.get()).thenReturn(requestHeadersUriMock);
+        when(requestHeadersUriMock.accept(MediaType.APPLICATION_JSON)).thenReturn(requestHeadersMock);
+        when(requestHeadersMock.retrieve()).thenReturn(responseMock);
+        when(responseMock.bodyToMono(IsbnNumbers.class)).thenReturn(Mono.just(isbnNumbers));
+    }
 
     @Test
     void should_return_a_random_book() {
